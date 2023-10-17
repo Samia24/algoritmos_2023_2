@@ -1,4 +1,4 @@
-import { obter_numero_positivo, print, print_inline, clear_screen, obter_numero_minimo, obter_numero } from "./input.js"
+import { obter_numero_positivo, print, print_inline, clear_screen, obter_numero_minimo, obter_numero, obter_texto } from "./input.js"
 
 export function divisores_do_numero(){
     let num = 1
@@ -198,3 +198,139 @@ export function resultado_final(){
     clear_screen()
     return {total_alunos, total_aprovados, total_reprovados}
 }
+
+export function fim_partida(jogador1, jogador2, diferenca){
+    if((jogador1 >= 21 || jogador2 >= 21) && diferenca >= 2){
+        if(jogador1 > jogador2){
+            print(`VENCEDOR da partida: Jogador 1 !`)
+        }else if(jogador2 > jogador1){
+            print(`VENCEDOR da partida: Jogador 2 !`)
+        }
+        return true
+    }
+    return false
+}
+
+export function calcularReajuste(salario) {
+    if (salario <= 2999.99) {
+        return salario * 1.25
+    } else if (salario >= 3000 && salario <= 5999.99) {
+        return salario * 1.20
+    } else if (salario >= 6000 && salario <= 9999.99) {
+        return salario * 1.15
+    } else {
+        return salario * 1.10
+    }
+}
+
+export function decimal_Hexadecimal(decimal) {
+    let hexadecimal = ''
+    const caracteres_hexadecimais = '0123456789ABCDEF' 
+
+    let temp_decimal = decimal
+
+    while (temp_decimal > 0) {
+        const resto = temp_decimal % 16
+        hexadecimal = caracteres_hexadecimais[resto] + hexadecimal
+        temp_decimal = (temp_decimal - resto) / 16
+    }
+
+    return hexadecimal
+}
+
+export function decimal_Binario(decimal) {
+    let binario = ''
+    let temp_decimal = decimal
+    let base = 128
+
+    while (base >= 1) {
+        let bit = 0
+
+        if (temp_decimal >= base) {
+            bit = 1;
+            temp_decimal -= base
+        }
+
+        binario += bit
+        base /= 2
+    }
+
+    return binario
+}
+
+export function calcular_dias_uteis(saldo_inicial, pagamento_diario, taxa_juro_diaria) {
+    let saldo_atual = saldo_inicial
+    let dias_uteis = 0
+
+    while (saldo_atual > 0) {
+        saldo_atual -= pagamento_diario
+        saldo_atual += saldo_atual * taxa_juro_diaria
+
+        if (saldo_atual > 0) {
+            dias_uteis++
+        }
+    }
+
+    return dias_uteis
+}
+
+export function encontrar_candidatas() {
+    let nome_mais_alta = ''
+    let nome_mais_baixa = ''
+    let nome_mais_magra = ''
+    let nome_mais_gorda = ''
+    let altura_mais_alta = 0
+    let altura_mais_baixa = 0
+    let peso_mais_magra = 0
+    let peso_mais_gorda = 0
+    let primeira_candidata = true
+
+    let continuar = true
+
+    while (continuar) {
+        const nome = obter_texto('Digite o nome da candidata (ou "FIM" para encerrar): ')
+
+        if (nome === 'FIM') {
+            continuar = false
+        } else {
+            const altura = obter_numero('Digite a altura da candidata (em cm): ')
+            const peso = obter_numero('Digite o peso da candidata (em kg): ')
+            clear_screen()
+
+            if (primeira_candidata || altura > altura_mais_alta) {
+                altura_mais_alta = altura
+                nome_mais_alta = nome
+            }
+
+            if (primeira_candidata || altura < altura_mais_baixa) {
+                altura_mais_baixa = altura
+                nome_mais_baixa = nome
+            }
+
+            if (primeira_candidata || peso < peso_mais_magra) {
+                peso_mais_magra = peso
+                nome_mais_magra = nome
+            }
+
+            if (primeira_candidata || peso > peso_mais_gorda) {
+                peso_mais_gorda = peso
+                nome_mais_gorda = nome
+            }
+
+            primeira_candidata = false
+        }
+    }
+
+    return {
+        nome_mais_alta,
+        nome_mais_baixa,
+        nome_mais_magra,
+        nome_mais_gorda,
+        altura_mais_alta,
+        altura_mais_baixa,
+        peso_mais_magra,
+        peso_mais_gorda
+    }
+}
+
+
