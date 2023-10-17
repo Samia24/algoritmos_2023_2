@@ -333,4 +333,15 @@ export function encontrar_candidatas() {
     }
 }
 
+export function calcularAnosParaUltrapassar(populacaoA, taxaCrescimentoA, populacaoB, taxaCrescimentoB) {
+    let anos = 0
+
+    while (populacaoA < populacaoB) {
+        populacaoA += populacaoA * taxaCrescimentoA
+        populacaoB += populacaoB * taxaCrescimentoB
+        anos++
+    }
+
+    return anos
+}
 
