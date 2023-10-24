@@ -37,3 +37,16 @@ export function clear_screen(){
 export function enter_to_continue(){
     console.log('<enter>... to continue')
 }
+
+export function menu_boi(){
+    const opcao = `
+     \n>>>>>> FICHAS DE CONTROLE DA BOIADA <<<<<<
+      1 - Menor boi (kg)
+      2 - Maior boi (kg)
+      0 - Sair
+         
+      OPÇÃO >>>> `
+     
+     return opcao
+ }
+ 

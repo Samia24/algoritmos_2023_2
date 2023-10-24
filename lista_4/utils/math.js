@@ -1,4 +1,4 @@
-import { obter_numero_positivo, print, print_inline, clear_screen, obter_numero_minimo, obter_numero, obter_texto } from "./input.js"
+import { obter_numero_positivo, print, print_inline, clear_screen, obter_numero_minimo, obter_numero, obter_texto, menu_boi } from "./input.js"
 
 export function divisores_do_numero(){
     let num = 1
@@ -345,3 +345,297 @@ export function calcularAnosParaUltrapassar(populacaoA, taxaCrescimentoA, popula
     return anos
 }
 
+export function ficha_boi(fichas){
+    let contador = 1
+    let boi_mais_gordo = { numero_id: 0, nome: '', peso: -Infinity }
+    let boi_mais_magro = { numero_id: 0, nome: '', peso: Infinity }
+    
+    while (contador <= fichas){
+        print(`\n|---------- DADOS ${contador}º BOI ----------|`)
+        let numero_id = obter_numero_positivo(`Número de identificação: `)
+        let nome = obter_texto(`Nome: `)
+        let peso = obter_numero_positivo(`Peso (Kg): `)
+        print(`\n|--------------------------------------------|`)
+
+        if (contador === 1){
+            boi_mais_magro = {numero_id, nome, peso}
+            boi_mais_gordo = {numero_id, nome, peso}
+        }else{
+            if (peso > boi_mais_gordo.peso){
+                boi_mais_gordo = {numero_id, nome, peso}    
+            }else if (peso < boi_mais_magro.peso){
+                boi_mais_magro = {numero_id, nome, peso}
+            }
+        }
+        contador++
+        clear_screen()
+    }
+    let nome_maior_boi = boi_mais_gordo.nome;
+    let id_maior_boi = boi_mais_gordo.numero_id;
+    let peso_maior = boi_mais_gordo.peso;
+    let nome_menor_boi = boi_mais_magro.nome;
+    let id_menor_boi = boi_mais_magro.numero_id;
+    let peso_menor = boi_mais_magro.peso;
+
+    
+    return {nome_maior_boi, id_maior_boi, peso_maior, nome_menor_boi, id_menor_boi, peso_menor}
+}
+
+export function preencher_fichas(escolha, nome_maior, id_maior, peso_mai, nome_menor, id_menor, peso_men){
+    while (escolha > 0){
+        if (escolha === 1){
+            clear_screen()
+            print('\n======== FICHA DO BOI MENOR ========')
+            print(`\n>> Número ID: ${id_menor} \n>> Nome: ${nome_menor} \n>> Peso: ${peso_men}kg`)
+            print('===================================')
+        }else if(escolha === 2){
+            clear_screen()
+            print('\n======== FICHA DO BOI MAIOR ========')
+            print(`\n>> Número ID: ${id_maior} \n>> Nome: ${nome_maior} \n>> Peso: ${peso_mai}kg`)
+            print('===================================')
+        }else{
+            clear_screen()
+            print('\n--- > Opção inválida! Informe novamente.')
+        }
+        escolha = obter_numero(menu_boi())
+    }
+    print('\n >>> Obrigado(a) por utilizar nossos serviços. \n      Volte sempre !! <<<')
+}
+
+export function multiplicacao(num1, num2){
+    let resultado = 0
+    let contador = 0
+
+    while (contador < num2){
+        resultado += num1
+        contador++
+    }
+    return resultado
+}
+
+export function progressao_geometrica(razao, N, contador, termo){
+    let termos = termo * razao
+    print_inline(`${termos} `)
+
+    while(contador <= (N - 2)){
+        termos *= razao
+        print_inline(`${termos} `)
+        contador++
+    }
+}
+
+export function progressao_aritmetica(razao, N, contador, termo){
+    let termos = termo + razao
+    print_inline(`${termos} `)
+
+    while(contador <= (N - 2)){
+        termos += razao
+        print_inline(`${termos} `)
+        contador++
+    }
+}
+
+export function audiencia_tv(){
+    let canal_2 = 0
+    let canal_4 = 0
+    let canal_5 = 0
+    let canal_7 = 0
+    let canal_10 = 0
+    
+    let canal = obter_numero_minimo(`Informe o canal que está assistindo TV (digite 0 para sair): `, -1)
+
+    while(canal !== 0){
+        if(canal === 2){
+            canal_2++
+        }else if(canal === 4){
+            canal_4++
+        }else if(canal === 5){
+            canal_5++
+        }else if(canal === 7){
+            canal_7++
+        }else if(canal === 10){
+            canal_10++
+        }else{
+            print('Canal INVÁLIDO !')
+        }
+        canal = obter_numero_minimo(`Informe o canal que está assistindo TV (digite 0 para sair): `, -1)
+    }
+
+    return {canal_2, canal_4, canal_5, canal_7, canal_10}
+}
+
+export function entrevistados_cinema(){
+    let contador = 1
+    print(`\n|---------- DADOS DO ${contador}º ENTREVISTADO ----------|`)
+    let idade = obter_numero(`Informe sua idade (digite -1 para sair): `)
+    
+    let qtd_regular = 0
+    let qtd_otimo = 0
+    let idades_otimo = 0
+    let qtd_bom = 0
+    let total_entrevistados = 0
+
+    while(idade > -1){
+        let opiniao = obter_numero(`\n>>>>> Qual sua opinião sobre o filme?
+        1 - Ótimo
+        2 - Bom
+        3 - Regular
+        4 - Péssimo 
+
+        > Digite sua escolha: `)
+
+        if(opiniao === 1){
+            idades_otimo += idade
+            qtd_otimo++
+            
+        }else if(opiniao === 2){
+            qtd_bom++
+            
+        }else if(opiniao === 3){
+            qtd_regular++
+            
+        }else if(opiniao === 4){
+            
+        }else{
+            print('\n        >>> Opção INVÁLIDA ! <<<')
+        }
+
+        if(opiniao >= 1 && opiniao <= 4){
+            total_entrevistados++
+            print('----------------------------------------------')
+            contador++
+            clear_screen()
+        }
+        
+        print(`\n|---------- DADOS DO ${contador}º ENTREVISTADO ----------|`)
+        idade = obter_numero(`Informe sua idade: `)       
+    }
+
+    return {qtd_otimo, idades_otimo, qtd_bom, qtd_regular, total_entrevistados}
+}
+
+export function calcular_estatisticas_pessoas() {
+    let total_pessoas = 0
+    let total_idade_homens = 0
+    let total_idade_mulheres = 0
+    let total_homens_solteiros = 0
+    let total_mulheres_solteiras = 0
+    let total_mulheres_divorciadas_acima_30 = 0
+
+    let contador = 1
+
+    print(`\n|-------------- DADOS DA ${contador}º PESSOA --------------|`)
+    let sexo = obter_numero('Informe o sexo (1 = Masculino, 2 = Feminino): ')
+    let idade = obter_numero('Informe a idade: ')
+    let estado_civil = obter_numero('Informe o estado civil (1 = Casado, 2 = Solteiro, 3 = Divorciado, 4 = Viúvo): ')
+    
+
+    while (total_pessoas < (100 - 1)) {
+
+        if (sexo === 1) { 
+            total_idade_homens += idade
+
+            if (estado_civil === 2) { 
+                total_homens_solteiros++
+            }
+
+        }else if(sexo === 2) { 
+            total_idade_mulheres += idade
+
+            if (estado_civil === 2) { 
+                total_mulheres_solteiras++
+            }
+            if (estado_civil === 3 && idade > 30) { 
+                total_mulheres_divorciadas_acima_30++
+            }
+        }else{
+            print('Sexo inválido. Por favor, informe 1 para Masculino ou 2 para Feminino.')
+        }
+
+        if(sexo >= 1 && sexo <= 2){
+            total_pessoas++
+            contador++
+            clear_screen()
+        }
+        
+        print(`\n|-------------- DADOS DA ${contador}º PESSOA --------------|`)
+        sexo = obter_numero('Informe o sexo (1 = Masculino, 2 = Feminino): ')
+        idade = obter_numero('Informe a idade: ')
+        estado_civil = obter_numero('Informe o estado civil (1 = Casado, 2 = Solteiro, 3 = Divorciado, 4 = Viúvo): ')
+    
+    }
+
+    return {total_pessoas, total_idade_homens, total_idade_mulheres, total_homens_solteiros, total_mulheres_solteiras, total_mulheres_divorciadas_acima_30}
+}
+
+export function calcular_investimento(saldo, meses, investimento_mensal, taxa_juros_mensal){
+    let continuar = 'S'
+    let cont = 1
+    
+    while (continuar === 'S' || continuar === 's') {
+        while (meses < (12 * cont)) {
+            saldo += investimento_mensal * (1 + (taxa_juros_mensal / 100)) ** meses
+            meses++
+        }
+        
+        print(`\n ----> Saldo do investimento após ${cont} ano(s): R$ ${saldo.toFixed(2)}`)
+        print('|=====================================================|')
+        continuar = obter_texto('\n>> Deseja processar mais um ano (S/N)?')
+        clear_screen()
+        cont++
+    }
+
+}
+
+export function calcular_valor_desconto_produto(){
+    print('\n|-------------------- DADOS DO PRODUTO --------------------|')
+    let nome_produto = obter_texto('Informe o nome do produto (ou digite "FIM" para encerrar): ')
+    
+    while (nome_produto !== 'FIM') {
+    
+        const preco = obter_numero('Informe o preço do produto: R$ ')
+        const quantidade = obter_numero('Informe a quantidade comprada: ')
+
+        let valor_total
+
+        if (quantidade <= 10) {
+            valor_total = quantidade * preco;
+        } else if (quantidade <= 20) {
+            valor_total = quantidade * preco * 0.9
+        } else if (quantidade <= 50) {
+            valor_total = quantidade * preco * 0.8
+        } else {
+            valor_total = quantidade * preco * 0.75
+        }
+        clear_screen()
+        print(`\n>>>>>>>>>> ${nome_produto.toUpperCase()} <<<<<<<<<<`)
+        print(`Valor Total a ser Pago: R$ ${valor_total.toFixed(2)}`)
+        print('-------------------------------------\n')
+
+        nome_produto = obter_texto('Informe o nome do produto (ou digite "FIM" para encerrar): ')
+    }
+    
+    print('\n>> Programa encerrado <<')
+    
+}
+
+export function converter_para_romano(digito, um, cinco, dez) {
+    let result = ''
+    if (digito === 9) {
+        result = um + dez
+    } else if (digito >= 5) {
+        result = cinco
+        if (digito > 5) {
+            result += um
+        }
+    } else if (digito === 4) {
+        result = um + cinco
+    } else {
+        let i = 0
+        while (i < digito) {
+            result += um
+            i++
+        }
+    }
+    return result
+}
