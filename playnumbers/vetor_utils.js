@@ -1,4 +1,4 @@
-import { clear_screen, enter_to_continue, obter_numero, print } from "./utils.js"
+import { clear_screen, enter_to_continue, obter_numero, obter_numero_positivo, print } from "./utils.js"
 import { min, max } from "./vetor_app.js"
 
 
@@ -90,4 +90,62 @@ export function mapear(funcao, vetor) {
       resultado.push(funcao(vetor[i]))
     }
     return resultado
+}
+
+export function substituir_negativos(vetor){
+    const minimo = obter_numero('\nInforme o valor mínimo: ')
+    const maximo = obter_numero('Informe o valor máximo: ')
+
+    for(let i = 0; i < vetor.length; i++){
+        if(vetor[i] < 0){
+            const valor_antigo = vetor[i]
+            let novo_valor = Math.floor(Math.random() * (maximo - minimo + 1)) + minimo
+
+            vetor[i] = novo_valor
+
+            print(`\n> Valor ${valor_antigo} localizado no índice ${i} substituído por ${novo_valor}!`)
+
+        }
+    }
+    return vetor
+}    
+
+export function ordenar_inverso(vetor) {
+    for (let i = 0; i < vetor.length - 1; i++) {
+        let indice_maximo = i
+        for (let j = i + 1; j < vetor.length; j++) {
+            if (vetor[j] > vetor[indice_maximo]) {
+                indice_maximo = j
+            }
+        }
+        if (indice_maximo !== i) {
+            const elemento_temporario = vetor[i]
+            vetor[i] = vetor[indice_maximo]
+            vetor[indice_maximo] = elemento_temporario
+        }
+    }
+    return vetor
+}
+
+export function embaralhar_vetor(vetor) {
+    for (let i = vetor.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        const elemento_temporario = vetor[i]
+        vetor[i] = vetor[j]
+        vetor[j] = elemento_temporario
+    }
+    return vetor
+}
+
+export function fracao_valor(vetor) {
+    const numerador = obter_numero_positivo('\n---> Informe o numerador da fração: ')
+    let denominador = obter_numero_positivo('---> Informe o denominador da fração: ')
+    
+    for (let i = 0; i < vetor.length; i++) {
+        const valor = vetor[i]
+        const resultado = (numerador / denominador) * valor
+        vetor[i] = resultado
+    }
+
+    return vetor
 }

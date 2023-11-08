@@ -1,6 +1,6 @@
 import {readFileSync} from 'fs';
 import { clear_screen, enter_to_continue, obter_numero, obter_numero_na_faixa, obter_numero_positivo, obter_texto, print } from "./utils.js";
-import { mapear } from './vetor_utils.js';
+import { embaralhar_vetor, fracao_valor, mapear, ordenar_inverso, substituir_negativos } from './vetor_utils.js';
 import { exponenciacao, multiplicar_valores_vetor } from './vetor_funcionalidades.js';
 
 export let min
@@ -123,7 +123,7 @@ export function menu_regras(vetor){
             clear_screen()
             print('\n-------------------------------------------------------------')
             print(`\n> Antigo vetor: { ${vetor} }`)
-            //vetor = (reduzir_valores_a_fracoes(vetor))
+            vetor = (fracao_valor(vetor))
             print(`\n> Novo vetor: { ${vetor} }`)
             print('\n-------------------------------------------------------------\n')
             enter_to_continue()
@@ -131,7 +131,7 @@ export function menu_regras(vetor){
             clear_screen()
             print('\n-------------------------------------------------------------')
             print(`\n> Antigo vetor: { ${vetor} }`)
-            vetor = (reduzir_valores_a_fracoes(vetor))
+            vetor = (substituir_negativos(vetor))
             print(`\n> Novo vetor: { ${vetor} }`)
             print('\n-------------------------------------------------------------\n')
             enter_to_continue()
@@ -139,7 +139,7 @@ export function menu_regras(vetor){
             clear_screen()
             print('\n-------------------------------------------------------------')
             print(`\n> Antigo vetor: { ${vetor} }`)
-            vetor = (reduzir_valores_a_fracoes(vetor))
+            vetor = (ordenar_inverso(vetor))
             print(`\n> Novo vetor: { ${vetor} }`)
             print('\n-------------------------------------------------------------\n')
             enter_to_continue()
@@ -147,7 +147,7 @@ export function menu_regras(vetor){
             clear_screen()
             print('\n-------------------------------------------------------------')
             print(`\n> Antigo vetor: { ${vetor} }`)
-            vetor = (reduzir_valores_a_fracoes(vetor))
+            vetor = (embaralhar_vetor(vetor))
             print(`\n> Novo vetor: { ${vetor} }`)
             print('\n-------------------------------------------------------------\n')
             enter_to_continue()
